@@ -6,7 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
-
 import in.main.entities.Products;
 import in.main.repo.ProductRepo;
 
@@ -33,10 +32,13 @@ public class ProductServiceImpl implements ProductServices{
 	}
 
 	@Override
-	public Products updateProduct(Products categories, Long id) {
+	public Products updateProduct(Products products, Long id) {
 		Products updateProducts = productRepo.findById(id).orElse(null);
 		
 		if(updateProducts != null) {
+			updateProducts.setCategories(products.getCategories());
+			updateProducts.setName(products.getName());
+			updateProducts.setPrice(products.getPrice());
 			return productRepo.save(updateProducts);
 		}else {
 			throw new RuntimeException("This ID is not Present in the Categories "+id);

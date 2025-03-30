@@ -37,6 +37,8 @@ public class CatServiceImpl implements CatServices{
 		Categories updateCategories = categoryRepo.findById(id).orElse(null);
 		
 		if(updateCategories != null) {
+			updateCategories.setCatName(categories.getCatName());
+			updateCategories.setProducts(categories.getProducts());
 			return categoryRepo.save(updateCategories);
 		}else {
 			throw new RuntimeException("This ID is not Present in the Categories "+id);
